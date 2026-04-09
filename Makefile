@@ -1,4 +1,4 @@
-PYTHON	= python
+PYTHON	= $(VENV)/python
 PYDOC	= pydoc
 PYCS	= $(shell find . -name "*.pyc")
 PYCACHE	= $(shell find . -name "__pycache__")
@@ -9,6 +9,8 @@ WORKDIR	= ./
 PYLINT	= pylint
 LINTRCF	= pylintrc.txt
 LINTRST	= pylintresult.txt
+VENV = ../bot-env/bin/         #仮想環境
+PIP = $(VENV)/pip
 
 all:
 	@:
@@ -40,3 +42,8 @@ lint: clean
 	@if [ ! -e $(LINTRCF) ] ; then $(PYLINT) --generate-rcfile > $(LINTRCF) 2> /dev/null ; fi
 	$(PYLINT) --rcfile=$(LINTRCF) `find . -name "*.py"` > $(LINTRST) ; less $(LINTRST)
 
+env:
+	source ../bot-env/bin/activate
+
+install:
+	$(PIP) install -r requirements.txt

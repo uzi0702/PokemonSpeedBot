@@ -7,7 +7,7 @@
 """
 __author__ = "uzi"
 __version__ = "0.0"
-__date__ = "2024/4/12 (created by 2024/4/12)"
+__date__ = "2026/4/7 (created by 2024/4/12)"
 
 from math import floor
 import discord
