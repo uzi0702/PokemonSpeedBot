@@ -15,7 +15,7 @@ from jaconv import hira2kata
 import requests
 from split_text import split_text
 import bot_token as token
-import variables
+import variables as variables
 
 BASE_URL = "https://pokeapi.co/api/v2/"
 
@@ -81,12 +81,9 @@ class PokeClient(discord.Client):
 					option,
 					self.poke_dict
 					)
-
-					print(pokemon_id)
 					
 
 					await self.check_except_pokemon(ja_pokemon_name, message)
-					#pokemon_condition = target_list[]
 					print("poke condition:"+pokemon_condition)
 					print(ja_pokemon_name+":"+target_list[1])
 				except IndexError:
@@ -94,11 +91,8 @@ class PokeClient(discord.Client):
 					continue
 
 				try:
-					#ポケモン名からidを辞書で取得する
-					#pokemon_id = self.poke_dict[ja_pokemon_name]
-					#print("pokemon_id:"+pokemon_id)
+					pokemon_id = self.poke_dict[ja_pokemon_name]
 					speed = get_num_of_speed(pokemon_id)
-					print("speed:"+str(speed))
 					result = calc_speed(speed, pokemon_condition)
 					await message.channel.send(ja_pokemon_name+":"+pokemon_condition+":"+str(result))
 					await self.say_real_num_of_each_rank(result, message)
@@ -153,9 +147,9 @@ def get_num_of_speed(name):
 	"""
 	pokeapiに問い合わせて、任意のポケモンの素早さ種族値をもらう関数
 	"""
+
 	response = requests.get(BASE_URL + f"pokemon/{name.lower()}", timeout=10)
-	#print(response.json())
-	
+
 	if not response.ok:
 		print("http response error")
 		return None
